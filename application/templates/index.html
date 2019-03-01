@@ -1,0 +1,71 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>IS-peta</title>
+        <link rel='stylesheet' href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css">
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='main.css') }}">
+    
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+        <script src="{{ url_for('static', filename='file.js') }}"></script>
+        <script src="https://code.jquery.com/jquery-2.2.4.min.js"
+            integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
+            crossorigin="anonymous"></script>
+    </head>
+    <body>
+        
+    {% from "includes/_formhelpers.html" import render_field %}
+        <div class="container">
+        {% block body %}
+        
+        <div class="container-fluid">
+            <div class="row">
+              <nav class="col-md-2 d-none d-md-block bg-light sidebar">
+                <div class="sidebar-sticky">
+                    <form id="upload-form" action="{{ url_for('upload') }}" method="POST" enctype="multipart/form-data">
+
+                        <input id="file-picker" type="file" name="file" accept="image/*" multiple>
+                        <div id="msg"></div>
+                        <input type="submit" value="Upload!" id="upload-button">
+                    </form>
+                    <form method = "POST" action = "" enctype="multipart/form-data">
+                        <div class="form-group">
+                            {{render_field(form.shape, class="form-control")}}
+                        </div>
+                        <div class="form-group">
+                            {{render_field(form.color, class="form-control")}}
+                        </div>
+                        <div class="form-group">
+                            {{render_field(form.surface, class="form-control")}}
+                        </div>
+                    </hr></br>
+                        <div class="form-group">
+                            {{render_field(form.brightness, class="form-control")}}
+                        </div>
+                        <div class="form-group">
+                            {{render_field(form.contrast, class="form-control")}}
+                        </div>
+                    </hr></br>
+                        <div class="form-check">
+                                {{ form.edge(class="form-check-input") }}
+                                {{ form.edge.label(class="form-check-label") }}
+                            </div>
+                       
+                        
+                    </form>
+                </div>
+              </nav>
+      
+              <main role="main" class="col-md-8 ml-sm-auto col-lg-10 pt-3 px-4">
+                    {% if image_name!= "" %}
+                    <a class="nav-link" href="#"> <img id = "slika" class="featurette-image img-fluid mx-auto" src = "{{ url_for('static', filename = 'pictures/' + image_name) }}" ></a>
+                    {% endif %}
+                </main>
+            </div>
+          </div>
+        
+        {% endblock %}
+    </div>
+        
+        <script src = "https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"></script>
+    </body>
+</html>
